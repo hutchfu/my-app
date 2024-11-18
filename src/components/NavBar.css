@@ -1,0 +1,15 @@
+nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: space-around;
+}
+
+nav a {
+  text-decoration: none;
+  color: black;
+}
+
+nav a:hover {
+  color: #007BFF;
+  transition: color 0.3s ease;
+}
