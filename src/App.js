@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom"; // Correct usage of Routes
-import Cart from "./components/Cart"; // Ensure the Cart component is in this path
-import StreamList from "./components/StreamList"; // Ensure the StreamList component is in this path
-import NavBar from "./components/NavBar"; // Ensure the NavBar component is in this path
-import Movies from "./components/Movies"; // Ensure the Movies component is in this path
-import About from "./components/About"; // Ensure the About component is in this path
-import productData from "./Data/data"; // Ensure the data is in this path
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Cart from "./components/Cart"; // Cart component
+import StreamList from "./components/StreamList"; // StreamList component
+import NavBar from "./components/NavBar"; // NavBar component
+import Movies from "./components/Movies"; // Movies component
+import About from "./components/About"; // About component
+import productData from "./Data/data"; // Product data
 
 const App = () => {
   const [cart, setCart] = useState([]);
@@ -25,11 +25,23 @@ const App = () => {
         </header>
 
         <main style={styles.main}>
-          <Routes> {/* Correct usage of Routes */}
-            <Route path="/" element={<StreamList addToCart={addToCart} />} />
-            <Route path="/movies" element={<Movies />} />
-            <Route path="/cart" element={<Cart cart={cart} />} />
-            <Route path="/about" element={<About />} />
+          <Routes>
+            <Route
+              path="/"
+              element={<StreamList addToCart={addToCart} />}
+            />
+            <Route
+              path="/movies"
+              element={<Movies />}
+            />
+            <Route
+              path="/cart"
+              element={<Cart cart={cart} setCart={setCart} />} // Ensure you pass setCart here
+            />
+            <Route
+              path="/about"
+              element={<About />}
+            />
           </Routes>
         </main>
 

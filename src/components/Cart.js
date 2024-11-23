@@ -1,27 +1,30 @@
-import React from 'react';
-import CartItem from './CartItem'; // Import CartItem component
+import React from "react";
 
 const Cart = ({ cart, setCart }) => {
+  // Define removeItem function here
   const removeItem = (id) => {
-    setCart(cart.filter(item => item.id !== id));
+    console.log("setCart: ", setCart);
+    console.log("cart: ", cart);
+    // Remove item from the cart by filtering out the item with the given id
+    setCart(cart.filter((item) => item.id !== id));
   };
-
-  const total = cart.reduce((acc, item) => acc + item.price * item.amount, 0);
 
   return (
     <div>
-      <h1>StreamList Cart</h1>
+      <h2>StreamList Cart</h2>
       {cart.length === 0 ? (
         <p>Your cart is empty.</p>
       ) : (
-        <>
-          <div>
-            {cart.map(item => (
-              <CartItem key={item.id} item={item} removeItem={removeItem} />
-            ))}
-          </div>
-          <h2>Total: ${total.toFixed(2)}</h2>
-        </>
+        <ul>
+          {cart.map((item) => (
+            <li key={item.id}>
+              <img src={item.img} alt={item.service} width="50" />
+              <span>{item.service}</span>
+              <span>{item.price}</span>
+              <button onClick={() => removeItem(item.id)}>Remove</button>
+            </li>
+          ))}
+        </ul>
       )}
     </div>
   );
