@@ -5,6 +5,8 @@ const StreamList = () => {
   const [tvShows, setTvShows] = useState([]);
   const [newMovie, setNewMovie] = useState("");
   const [newTvShow, setNewTvShow] = useState("");
+  const [editMode, setEditMode] = useState({ type: null, index: null });
+  const [editTitle, setEditTitle] = useState("");
 
   const addMovie = () => {
     if (newMovie) {
@@ -40,6 +42,29 @@ const StreamList = () => {
     }
   };
 
+  const startEdit = (type, index, currentTitle) => {
+    setEditMode({ type, index });
+    setEditTitle(currentTitle);
+  };
+
+  const saveEdit = () => {
+    if (editMode.type === "movie") {
+      const updatedMovies = [...movies];
+      updatedMovies[editMode.index].title = editTitle;
+      setMovies(updatedMovies);
+    } else if (editMode.type === "tvShow") {
+      const updatedTvShows = [...tvShows];
+      updatedTvShows[editMode.index].title = editTitle;
+      setTvShows(updatedTvShows);
+    }
+    cancelEdit();
+  };
+
+  const cancelEdit = () => {
+    setEditMode({ type: null, index: null });
+    setEditTitle("");
+  };
+
   return (
     <div>
       <h1>StreamList</h1>
@@ -70,13 +95,36 @@ const StreamList = () => {
         <ul>
           {movies.map((movie, index) => (
             <li key={index}>
-              <span style={{ textDecoration: movie.watched ? "line-through" : "none" }}>
-                {movie.title}
-              </span>
-              <button onClick={() => markAsWatched(index, "movie")}>
-                {movie.watched ? "Watched" : "Mark as Watched"}
-              </button>
-              <button onClick={() => removeItem(index, "movie")}>Remove</button>
+              {editMode.type === "movie" && editMode.index === index ? (
+                <>
+                  <input
+                    type="text"
+                    value={editTitle}
+                    onChange={(e) => setEditTitle(e.target.value)}
+                  />
+                  <button onClick={saveEdit}>Save</button>
+                  <button onClick={cancelEdit}>Cancel</button>
+                </>
+              ) : (
+                <>
+                  <span
+                    style={{
+                      textDecoration: movie.watched ? "line-through" : "none",
+                    }}
+                  >
+                    {movie.title}
+                  </span>
+                  <button onClick={() => markAsWatched(index, "movie")}>
+                    {movie.watched ? "Watched" : "Mark as Watched"}
+                  </button>
+                  <button onClick={() => startEdit("movie", index, movie.title)}>
+                    Edit
+                  </button>
+                  <button onClick={() => removeItem(index, "movie")}>
+                    Remove
+                  </button>
+                </>
+              )}
             </li>
           ))}
         </ul>
@@ -89,13 +137,38 @@ const StreamList = () => {
         <ul>
           {tvShows.map((show, index) => (
             <li key={index}>
-              <span style={{ textDecoration: show.watched ? "line-through" : "none" }}>
-                {show.title}
-              </span>
-              <button onClick={() => markAsWatched(index, "tvShow")}>
-                {show.watched ? "Watched" : "Mark as Watched"}
-              </button>
-              <button onClick={() => removeItem(index, "tvShow")}>Remove</button>
+              {editMode.type === "tvShow" && editMode.index === index ? (
+                <>
+                  <input
+                    type="text"
+                    value={editTitle}
+                    onChange={(e) => setEditTitle(e.target.value)}
+                  />
+                  <button onClick={saveEdit}>Save</button>
+                  <button onClick={cancelEdit}>Cancel</button>
+                </>
+              ) : (
+                <>
+                  <span
+                    style={{
+                      textDecoration: show.watched ? "line-through" : "none",
+                    }}
+                  >
+                    {show.title}
+                  </span>
+                  <button onClick={() => markAsWatched(index, "tvShow")}>
+                    {show.watched ? "Watched" : "Mark as Watched"}
+                  </button>
+                  <button
+                    onClick={() => startEdit("tvShow", index, show.title)}
+                  >
+                    Edit
+                  </button>
+                  <button onClick={() => removeItem(index, "tvShow")}>
+                    Remove
+                  </button>
+                </>
+              )}
             </li>
           ))}
         </ul>
