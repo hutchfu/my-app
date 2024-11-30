@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./NavBar.css"; // Make sure the CSS path is correct
+import "./NavBar.css"; 
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
 const NavBar = () => (
@@ -26,6 +26,7 @@ const NavBar = () => (
           <i className="fas fa-info-circle"></i> About
         </Link>
       </li>
+      <li><Link to="/TMDB">TMDB Movies</Link></li>
     </ul>
   </nav>
 );

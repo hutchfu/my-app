@@ -4,8 +4,9 @@ import Cart from "./components/Cart"; // Cart component
 import StreamList from "./components/StreamList"; // StreamList component
 import NavBar from "./components/NavBar"; // NavBar component
 import Movies from "./components/Movies"; // Movies component
+import TMDBMovies from "./components/TMDBMovies";
 import About from "./components/About"; // About component
-import productData from "./Data/data"; // Product data
+
 
 const App = () => {
   const [cart, setCart] = useState([]);
@@ -41,7 +42,7 @@ const App = () => {
             <Route
               path="/about"
               element={<About />}
-            />
+            /><Route path="/tmdb" element={<TMDBMovies />} />
           </Routes>
         </main>
 
