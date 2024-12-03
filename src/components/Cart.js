@@ -1,12 +1,15 @@
 import React from "react";
 import productData from "../Data/data";
 import "./Cart.css"; // Importing the CSS file for styling
+import { useNavigate } from "react-router-dom"; // For navigation to credit card page
 
 const Cart = ({ cart, setCart }) => {
   const taxRate = 0.08; // Tax rate
   const subtotal = cart.reduce((sum, item) => sum + item.price * item.amount, 0);
   const tax = subtotal * taxRate;
   const total = subtotal + tax;
+
+  const navigate = useNavigate();
 
   const removeFromCart = (id) => {
     setCart(cart.filter((item) => item.id !== id));
@@ -29,6 +32,11 @@ const Cart = ({ cart, setCart }) => {
       return;
     }
     setCart([...cart, { ...product, amount: 1 }]);
+  };
+
+  const handleCheckout = () => {
+    console.log("Navigating to /checkout");
+    navigate("/checkout");
   };
 
   return (
@@ -100,6 +108,13 @@ const Cart = ({ cart, setCart }) => {
         <p className="cart-total">
           <strong>Total:</strong> ${total.toFixed(2)}
         </p>
+      </div>
+
+      {/* Checkout Button */}
+      <div className="checkout-button">
+        <button onClick={handleCheckout} className="checkout-button-style">
+          Proceed to Checkout
+        </button>
       </div>
     </div>
   );
