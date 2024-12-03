@@ -1,10 +1,14 @@
 import React from "react";
 import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
+import { useNavigate } from "react-router-dom";
 
 const Login = ({ onLoginSuccess }) => {
+  const navigate = useNavigate(); // Initialize navigate function
+
   const handleLoginSuccess = (response) => {
     console.log("Login successful:", response);
-    onLoginSuccess();
+    onLoginSuccess(); // Update the authentication state in the parent component
+    navigate("/"); // Redirect to StreamList after login
   };
 
   const handleLoginFailure = (error) => {

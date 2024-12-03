@@ -1,7 +1,7 @@
 import React from "react";
 import productData from "../Data/data";
-import "./Cart.css"; // Importing the CSS file for styling
-import { useNavigate } from "react-router-dom"; // For navigation to credit card page
+import "./Cart.css"; 
+import { useNavigate } from "react-router-dom"; 
 
 const Cart = ({ cart, setCart }) => {
   const taxRate = 0.08; // Tax rate
